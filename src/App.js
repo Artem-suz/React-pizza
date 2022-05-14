@@ -11,6 +11,8 @@ import { Cart, Home } from "./pages"
 
 function App() {
 
+  
+
 	return (
 		<div className="wrapper">
 			<Header />
