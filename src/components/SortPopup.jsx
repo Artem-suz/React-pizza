@@ -19,13 +19,13 @@ function SortPopup({ items }) {
 	useEffect(() => {
 		document.body.addEventListener('click', handleOutsideClick)
 	}, [])
-  const activeName = items[activeItem]
+	const activeName = items[activeItem].name
 
 	return (
 		<div className="sort" ref={sortRef}>
 			<div className="sort__label">
 				<svg
-        className={visiblePopup? 'rotated' : ''}
+					className={visiblePopup ? 'rotated' : ''}
 					width="10"
 					height="6"
 					viewBox="0 0 10 6"
@@ -46,16 +46,15 @@ function SortPopup({ items }) {
 				<div className="sort__popup">
 					<ul>
 						{items &&
-							items.map((name, index) => (
+							items.map((obj, index) => (
 								<li
-									key={`${name}_${index}`}
+									key={`${obj.name}_${index}`}
 									onClick={() => onSelectItem(index)}
 									className={index === activeItem ? 'active' : ''}
 								>
-									{name}
+									{obj.name}
 								</li>
 							))}
-						
 					</ul>
 				</div>
 			)}
