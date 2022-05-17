@@ -1,9 +1,7 @@
-import axios from 'axios'
+import { pizzasAPI } from '../../api/api'
 
-
-export const fetchPizzas = () => (dispatch) => {
-
-	axios.get('http://localhost:3001/pizzas').then(({ data }) => {
+export const getPizzas = () => (dispatch) => {
+	pizzasAPI.fetchPizzas().then((data) => {
 		dispatch(setPizzas(data))
 	})
 }
