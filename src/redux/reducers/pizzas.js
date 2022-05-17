@@ -1,8 +1,10 @@
 const SET_PIZZAS = 'SET_PIZZAS'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+
 
 const initialState = {
 	items: [],
-	isLoaded: false,
+	isFetching: false,
 }
 
 const pizzas = (state = initialState, action) => {
@@ -12,6 +14,8 @@ const pizzas = (state = initialState, action) => {
 				...state,
 				items: action.payload,
 			}
+    case TOGGLE_IS_FETCHING:
+      return {...state, isFetching: action.isFetching }
 
 		default:
 			return state

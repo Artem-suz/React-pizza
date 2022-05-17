@@ -5,13 +5,11 @@ import { Route, Routes } from 'react-router-dom'
 
 import { Header } from './components'
 import { Cart, Home } from './pages'
-import {getPizzas} from './redux/actions/pizzas'
-
-
+import { getPizzas } from './redux/actions/pizzas'
 
 const App = () => {
-  const dispatch = useDispatch()
-  
+	const dispatch = useDispatch()
+
 	useEffect(() => {
 		dispatch(getPizzas())
 	}, [])
