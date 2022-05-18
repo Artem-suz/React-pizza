@@ -1,30 +1,30 @@
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Categories, PizzaBlock, SortPopup } from '../components'
+import { Categories, PizzaBlock, Preloader, SortPopup } from '../components'
 import { setCategory } from '../redux/actions/filters'
 
 const categoryNames = [
-  'Мясные',
-  'Вегетарианская',
-  'Гриль',
-  'Острые',
-  'Закрытые',
+	'Мясные',
+	'Вегетарианская',
+	'Гриль',
+	'Острые',
+	'Закрытые',
 ]
 const sortItems = [
-  { name: 'популярности', type: 'popular' },
-  { name: 'цене', type: 'price' },
-  { name: 'алфавиту', type: 'alphabet' },
+	{ name: 'популярности', type: 'popular' },
+	{ name: 'цене', type: 'price' },
+	{ name: 'алфавиту', type: 'alphabet' },
 ]
 
 const Home = () => {
 	const dispatch = useDispatch()
 	const items = useSelector(({ pizzas }) => pizzas.items)
-  
+	const isFetching = useSelector(({ pizzas }) => pizzas.isFetching)
+
 	const onSelectCategory = useCallback((index) => {
 		dispatch(setCategory(index))
 	}, [])
-
 
 	return (
 		<div className="container">
@@ -37,10 +37,14 @@ const Home = () => {
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">
-				{items &&
-					items.map((pizza) => (
-						<PizzaBlock {...pizza} key={`${pizza.name}_${pizza.id}`} />
-					))}
+
+				{isFetching
+					? Array(12)
+							.fill(0)
+							.map((elem, index) => <Preloader key={`${elem}_${index}`} />)
+					: items.map((pizza) => (
+							<PizzaBlock {...pizza} key={`${pizza.name}_${pizza.id}`} />
+					  ))}
 			</div>
 		</div>
 	)
