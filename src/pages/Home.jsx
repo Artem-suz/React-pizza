@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Categories, PizzaBlock, Preloader, SortPopup } from '../components'
-import { setCategory } from '../redux/actions/filters'
+import { setCategory, setSortBy } from '../redux/actions/filters'
 
 const categoryNames = [
 	'Мясные',
@@ -21,9 +21,14 @@ const Home = () => {
 	const dispatch = useDispatch()
 	const items = useSelector(({ pizzas }) => pizzas.items)
 	const isFetching = useSelector(({ pizzas }) => pizzas.isFetching)
+	const { category, sortBy } = useSelector(({ filter }) => filter)
 
 	const onSelectCategory = useCallback((index) => {
 		dispatch(setCategory(index))
+	}, [])
+
+  const onSelectSortType = useCallback((type) => {
+		dispatch(setSortBy(type))
 	}, [])
 
 	return (
@@ -31,13 +36,13 @@ const Home = () => {
 			<div className="content__top">
 				<Categories
 					items={categoryNames}
-					onClickItem={(index) => onSelectCategory(index)}
+          activeCategory={category}
+					onClickCategory={(index) => onSelectCategory(index)}
 				/>
-				<SortPopup items={sortItems} />
+				<SortPopup items={sortItems} activeSortType={sortBy} onSelectSortType={onSelectSortType}/>
 			</div>
 			<h2 className="content__title">Все пиццы</h2>
 			<div className="content__items">
-
 				{isFetching
 					? Array(12)
 							.fill(0)
