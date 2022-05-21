@@ -2,11 +2,15 @@ const SET_SORT_BY = 'SET_SORT_BY'
 const SET_CATEGORY = 'SET_CATEGORY'
 
 const initialState = {
-	sortBy: 'popular',
+	sortBy: {
+    type: 'rating',
+    order: 'desc',
+  },
 	category: null,
 }
 
 const filters = (state = initialState, action) => {
+
 	switch (action.type) {
 		case SET_SORT_BY:
 			return {

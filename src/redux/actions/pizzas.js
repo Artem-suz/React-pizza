@@ -1,8 +1,8 @@
 import { pizzasAPI } from '../../api/api'
 
-export const getPizzas = () => (dispatch) => {
+export const getPizzas = (sortBy, category) => (dispatch) => {
 	dispatch(toggleIsFetching(true))
-	pizzasAPI.fetchPizzas().then((data) => {
+	pizzasAPI.fetchPizzas(sortBy, category).then((data) => {
 		dispatch(setPizzas(data))
 
 		dispatch(toggleIsFetching(false))
