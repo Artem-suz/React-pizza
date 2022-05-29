@@ -1,30 +1,29 @@
-const SET_SORT_BY = 'SET_SORT_BY'
-const SET_CATEGORY = 'SET_CATEGORY'
+// const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE'
+// const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
+const SET_PIZZA_CART = 'SET_PIZZA_CART'
 
 const initialState = {
-	sortBy: {
-    type: 'rating',
-    order: 'desc',
-  },
-	category: null,
+	items: {},
+	totalPrice: 0,
+	totalCount: 0,
 }
 
-const filters = (state = initialState, action) => {
-
+const cart = (state = initialState, action) => {
 	switch (action.type) {
-		case SET_SORT_BY:
+		case SET_PIZZA_CART:
 			return {
 				...state,
-				sortBy: action.payload,
+				items: {
+					[action.payload.id]: [
+						...state.items[action.payload.id],
+						action.payload,
+					],
+				},
 			}
-		case SET_CATEGORY:
-			return {
-				...state,
-				category: action.payload,
-			}
+
 		default:
 			return state
 	}
 }
 
-export default filters
+export default cart

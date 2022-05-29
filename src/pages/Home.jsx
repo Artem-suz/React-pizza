@@ -58,7 +58,8 @@ const Home = () => {
 							.fill(0)
 							.map((elem, index) => <Preloader key={`${elem}_${index}`} />)
 					: items.map((pizza) => (
-							<PizzaBlock {...pizza} key={`${pizza.name}_${pizza.id}`} />
+							<PizzaBlock {...pizza} onClickAddPizza={(obj) => console.log(obj)}
+              key={`${pizza.name}_${pizza.id}`} />
 					  ))}
 			</div>
 		</div>

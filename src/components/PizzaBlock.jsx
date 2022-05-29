@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
+import Button from './Button'
 
+function PizzaBlock({ id, imageUrl, name, price, sizes, types, onClickAddPizza }) {
 
-function PizzaBlock({ imageUrl, name, price, sizes, types }) {
 	const typeNames = ['тонкое', 'традиционное']
 	const [activeType, setActiveType] = useState(types[0])
 	const availableSizes = [26, 30, 40]
@@ -14,9 +15,17 @@ function PizzaBlock({ imageUrl, name, price, sizes, types }) {
 	const onSelectType = (index) => {
 		setActiveType(index)
 	}
-
-
-
+  const handleAddPizza = () => {
+    const obj = {
+      id,
+      name,
+      imageUrl,
+      price,
+      size: activeSize,
+      type: activeType,
+    }
+    onClickAddPizza(obj)
+  }
 
 	return (
 		<div className="pizza-block">
@@ -54,7 +63,11 @@ function PizzaBlock({ imageUrl, name, price, sizes, types }) {
 			</div>
 			<div className="pizza-block__bottom">
 				<div className="pizza-block__price">от {price} ₽</div>
-				<div className="button button--outline button--add">
+				<Button
+					className="button button--outline button--add"
+					outline
+					onClick={handleAddPizza}
+				>
 					<svg
 						width="12"
 						height="12"
@@ -69,13 +82,11 @@ function PizzaBlock({ imageUrl, name, price, sizes, types }) {
 					</svg>
 					<span>Добавить</span>
 					<i>2</i>
-				</div>
+				</Button>
 			</div>
 		</div>
 	)
 }
-
-
 
 PizzaBlock.propTypes = {
 	name: PropTypes.string.isRequired,
@@ -83,6 +94,7 @@ PizzaBlock.propTypes = {
 	price: PropTypes.number.isRequired,
 	sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
 	types: PropTypes.arrayOf(PropTypes.number).isRequired,
+	onClickAddPizza: PropTypes.func.isRequired,
 }
 
 export default PizzaBlock
