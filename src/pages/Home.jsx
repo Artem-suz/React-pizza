@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Categories, PizzaBlock, Preloader, SortPopup } from '../components'
 import { setCategory, setSortBy } from '../redux/actions/filters'
 import { getPizzas } from '../redux/actions/pizzas'
+import { addPizzaToCart } from '../redux/actions/cart'
+
 
 const categoryNames = [
 	'Мясные',
@@ -17,6 +19,7 @@ const sortItems = [
 	{ name: 'цене', type: 'price', order: 'desc' },
 	{ name: 'алфавиту', type: 'name', order: 'asc' },
 ]
+
 
 const Home = () => {
 	const dispatch = useDispatch()
@@ -36,6 +39,10 @@ const Home = () => {
 	const onSelectSortType = useCallback((type) => {
 		dispatch(setSortBy(type))
 	}, [])
+
+  const handleAddPizzaToCart = (obj) => {
+    dispatch(addPizzaToCart(obj))
+  }
 
 	return (
 		<div className="container">
@@ -58,8 +65,11 @@ const Home = () => {
 							.fill(0)
 							.map((elem, index) => <Preloader key={`${elem}_${index}`} />)
 					: items.map((pizza) => (
-							<PizzaBlock {...pizza} onClickAddPizza={(obj) => console.log(obj)}
-              key={`${pizza.name}_${pizza.id}`} />
+							<PizzaBlock
+								{...pizza}
+								onClickAddPizza={handleAddPizzaToCart}
+								key={`${pizza.name}_${pizza.id}`}
+							/>
 					  ))}
 			</div>
 		</div>
