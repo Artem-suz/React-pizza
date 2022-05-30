@@ -4,11 +4,12 @@ import PropTypes from 'prop-types'
 import Button from './Button'
 
 function PizzaBlock({ id, imageUrl, name, price, sizes, types, onClickAddPizza }) {
-
+  
 	const typeNames = ['тонкое', 'традиционное']
 	const [activeType, setActiveType] = useState(types[0])
 	const availableSizes = [26, 30, 40]
-	const [activeSize, setActiveSize] = useState(sizes[0])
+	const [activeSize, setActiveSize] = useState(0)
+
 	const onSelectSize = (size) => {
 		setActiveSize(size)
 	}
@@ -21,8 +22,8 @@ function PizzaBlock({ id, imageUrl, name, price, sizes, types, onClickAddPizza }
       name,
       imageUrl,
       price,
-      size: activeSize,
-      type: activeType,
+      size: availableSizes[activeSize],
+      type: typeNames[activeType],
     }
     onClickAddPizza(obj)
   }
@@ -49,9 +50,9 @@ function PizzaBlock({ id, imageUrl, name, price, sizes, types, onClickAddPizza }
 				<ul>
 					{availableSizes.map((size, index) => (
 						<li
-							onClick={() => onSelectSize(size)}
+							onClick={() => onSelectSize(index)}
 							className={classNames({
-								active: activeSize === size,
+								active: activeSize === index,
 								disabled: !sizes.includes(size),
 							})}
 							key={`${size}_${index}`}
