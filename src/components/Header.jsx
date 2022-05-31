@@ -4,8 +4,9 @@ import logoSvg from '../assets/img/pizza-logo.svg'
 import Button from './Button'
 
 const Header = (props) => {
+  
 	const { totalPrice, totalCount } = useSelector(({ cart }) => cart)
-
+  console.log(totalCount)
 	return (
 		<div className="header">
 			<div className="container">

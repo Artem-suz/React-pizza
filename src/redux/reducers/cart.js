@@ -1,5 +1,3 @@
-// const SET_TOTAL_PRICE = 'SET_TOTAL_PRICE'
-// const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 const SET_PIZZA_CART = 'SET_PIZZA_CART'
 
 const initialState = {
@@ -10,16 +8,20 @@ const initialState = {
 
 const cart = (state = initialState, action) => {
 	switch (action.type) {
-		case SET_PIZZA_CART:
+		case SET_PIZZA_CART: {
+			const newItems = {
+				...state.items,
+				[action.payload.id]: !state.items[action.payload.id]
+					? [action.payload]
+					: [...state.items[action.payload.id], action.payload],
+			}
+
 			return {
 				...state,
-				items: {
-					...state.items,
-					[action.payload.id]: !state.items[action.payload.id]
-						? [action.payload]
-						: [...state.items[action.payload.id], action.payload],
-				},
+				items: newItems,
+				totalCount: [].concat.apply([], Object.values(newItems)).length,
 			}
+		}
 
 		default:
 			return state
