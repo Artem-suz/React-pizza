@@ -24,8 +24,9 @@ const sortItems = [
 const Home = () => {
 	const dispatch = useDispatch()
 	const items = useSelector(({ pizzas }) => pizzas.items)
+	const cartItems = useSelector(({ cart }) => cart.items)
 	const isFetching = useSelector(({ pizzas }) => pizzas.isFetching)
-
+	console.log(cartItems)
 	const { category, sortBy } = useSelector(({ filter }) => filter)
 
 	useEffect(() => {
@@ -68,6 +69,7 @@ const Home = () => {
 							<PizzaBlock
 								{...pizza}
 								onClickAddPizza={handleAddPizzaToCart}
+								addedCount={cartItems[pizza.id] && cartItems[pizza.id].length}
 								key={`${pizza.name}_${pizza.id}`}
 							/>
 					  ))}
