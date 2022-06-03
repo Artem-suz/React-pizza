@@ -8,7 +8,7 @@ export const pizzasAPI = {
 		const categoryParam = (category === null) ? '' : ('category='+category)
 
 		return axios
-			.get(`http://localhost:3001/pizzas?${categoryParam}&_sort=${sortBy.type}&_order=${sortBy.order}`)
+			.get(`/pizzas?${categoryParam}&_sort=${sortBy.type}&_order=${sortBy.order}`)
 			.then(({ data }) => data)
 	},
 }
