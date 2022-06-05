@@ -30,3 +30,5 @@
 
 ## Вид интерфейса
 ![Pizza](./screens/Pizza.PNG)
+![Cart](./screens/Cart.PNG)
+![EmptyCart](./screens/EmptyCart.PNG)
