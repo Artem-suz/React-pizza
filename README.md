@@ -11,7 +11,7 @@
 
 ## Запуск проекта
 
-### npm run server - запуск json-server
+### npm run json-server - запуск json-server
 ### npm start
 
 ## Функционал
