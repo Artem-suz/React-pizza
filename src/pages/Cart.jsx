@@ -10,6 +10,7 @@ import {
 } from '../redux/actions/cart'
 import cartEmptyImage from '../assets/img/empty-cart.png'
 import { Link } from 'react-router-dom'
+import Button from '../components/Button'
 
 function Cart() {
 	const dispatch = useDispatch()
@@ -29,13 +30,16 @@ function Cart() {
 			dispatch(removeCartItem(id))
 		}
 	}
-  const onPlusItem = (id) => {
-    dispatch(plusCartItem(id))
+	const onPlusItem = (id) => {
+		dispatch(plusCartItem(id))
+	}
+	const onMinusItem = (id) => {
+		dispatch(minusCartItem(id))
+	}
+  const onClickOrder = () => {
+    console.log(`Ваш заказ:`, items)
   }
 
-  const onMinusItem = (id) => {
-    dispatch(minusCartItem(id))
-  }
 	return (
 		<div className="content">
 			<div className="container container--cart">
@@ -125,8 +129,8 @@ function Cart() {
 									totalCount={items[obj.id].items.length}
 									onRemove={onRemoveItem}
 									id={obj.id}
-                  onMinusItem={onMinusItem}
-                  onPlusItem={onPlusItem}
+									onMinusItem={onMinusItem}
+									onPlusItem={onPlusItem}
 									key={`${obj.name}_${obj.id}`}
 								/>
 							))}
@@ -160,18 +164,19 @@ function Cart() {
 											strokeLinejoin="round"
 										/>
 									</svg>
-
-									<span>Вернуться назад</span>
+									<Link to="/" >
+										<span>Вернуться назад</span>
+									</Link>
 								</a>
-								<div className="button pay-btn">
+								<Button className="pay-btn" onClick={onClickOrder}>
 									<span>Оплатить сейчас</span>
-								</div>
+								</Button>
 							</div>
 						</div>
 					</div>
 				) : (
 					<div className="cart cart--empty">
-						<h2>Корзина пустая 😕</h2>
+						<h2>Корзина пустая <i>😕</i></h2>
 						<p>
 							Вероятней всего, вы не заказывали ещё пиццу.
 							<br />
